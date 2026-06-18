@@ -1,0 +1,70 @@
+# JarDIYn Weather MCP
+
+This MCP server adds local AI-agent tools for the JarDIYn GardenHub project:
+
+- National Weather Service forecast lookup
+- National Weather Service active alerts
+- Weather-aware watering schedule generation
+- JarDIYn deterministic garden-signal evaluation
+- Demo garden profile context
+- A JarDIYn garden design prompt template
+
+The deployed GitHub Pages app is static, so MCP runs locally as a Node stdio server for clients like Claude Desktop, Claude Code, Cursor, or MCP Inspector.
+
+## Install
+
+From the repository root:
+
+```bash
+cd jardiyn-final-submission
+mkdir weather
+# copy this folder's files into jardiyn-final-submission/weather
+cd weather
+npm install
+npm run build
+```
+
+## Run locally
+
+```bash
+npm start
+```
+
+For MCP Inspector:
+
+```bash
+npm run inspect
+```
+
+## Optional User-Agent
+
+The National Weather Service asks API consumers to identify their app with a User-Agent. Set this before starting the server:
+
+```bash
+export JARDIYN_USER_AGENT="jardiyn-garden-hub/1.0 (contact: you@example.com)"
+```
+
+## Claude Desktop config example
+
+Replace `/ABSOLUTE/PATH/TO` with your local path:
+
+```json
+{
+  "mcpServers": {
+    "jardiyn-weather": {
+      "command": "node",
+      "args": ["/ABSOLUTE/PATH/TO/jardiyn-garden-hub/jardiyn-final-submission/weather/build/index.js"],
+      "env": {
+        "JARDIYN_USER_AGENT": "jardiyn-garden-hub/1.0 (contact: you@example.com)"
+      }
+    }
+  }
+}
+```
+
+## Example prompts to test
+
+- "Use the JarDIYn MCP to get the demo garden profile."
+- "Evaluate this garden: Zone 6a, loam, pH 6.7; observation requested_plant mango."
+- "Create a watering schedule for Grand Rapids, MI at 42.9634, -85.6681 with loam soil and full sun."
+- "Check weather alerts for MI."
